@@ -18,6 +18,18 @@ const geist = Geist({
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  // Check if Clerk is configured
+  const isClerkConfigured = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY && process.env.CLERK_SECRET_KEY;
+  
+  if (!isClerkConfigured) {
+    // Render without ClerkProvider if not configured
+    return (
+      <html lang="en" className={`${geist.variable}`}>
+        <body>{children}</body>
+      </html>
+    );
+  }
+
   return (
     <ClerkProvider>
       <html lang="en" className={`${geist.variable}`}>
