@@ -1,10 +1,18 @@
-import { NextResponse, type NextRequest } from 'next/server'
+import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
 
-export function middleware(request: NextRequest) {
-  // For now, just allow all requests to pass through
-  // Authentication will be added when Vercel integrations are set up
-  return NextResponse.next()
-}
+const isProtectedRoute = createRouteMatcher([
+  '/dashboard(.*)',
+  '/api/user(.*)',
+  '/api/meeting-types(.*)',
+  '/api/availability',
+  '/api/bookings(.*)',
+])
+
+export default clerkMiddleware(async (auth, req) => {
+  if (isProtectedRoute(req)) {
+    await auth.protect()
+  }
+})
 
 export const config = {
   matcher: [

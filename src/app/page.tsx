@@ -11,9 +11,18 @@ export default function HomePage() {
               <h1 className="text-2xl font-bold text-white">Better Calendly</h1>
             </div>
             <div className="flex items-center space-x-4">
-              <div className="text-white px-3 py-2 rounded-md text-sm font-medium">
-                Setting up integrations...
-              </div>
+              <Link
+                href="/sign-in"
+                className="text-white hover:text-gray-300 px-3 py-2 rounded-md text-sm font-medium"
+              >
+                Sign In
+              </Link>
+              <Link
+                href="/sign-up"
+                className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium"
+              >
+                Get Started
+              </Link>
             </div>
           </div>
         </div>

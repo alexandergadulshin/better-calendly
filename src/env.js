@@ -7,6 +7,13 @@ export const env = createEnv({
    * isn't built with invalid env vars.
    */
   server: {
+    // Clerk (will be provided by Vercel integration)
+    CLERK_SECRET_KEY: z.string().min(1).optional(),
+    CLERK_WEBHOOK_SECRET: z.string().min(1).optional(),
+    // Supabase (will be provided by Vercel integration)
+    SUPABASE_URL: z.string().url().optional(),
+    SUPABASE_ANON_KEY: z.string().min(1).optional(),
+    SUPABASE_SERVICE_ROLE_KEY: z.string().min(1).optional(),
     // Node environment
     NODE_ENV: z
       .enum(["development", "test", "production"])
@@ -19,7 +26,15 @@ export const env = createEnv({
    * `NEXT_PUBLIC_`.
    */
   client: {
-    // Client-side environment variables will be added when integrations are set up
+    // Clerk (will be provided by Vercel integration)
+    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: z.string().min(1).optional(),
+    NEXT_PUBLIC_CLERK_SIGN_IN_URL: z.string().optional(),
+    NEXT_PUBLIC_CLERK_SIGN_UP_URL: z.string().optional(),
+    NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL: z.string().optional(),
+    NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL: z.string().optional(),
+    // Supabase (will be provided by Vercel integration)
+    NEXT_PUBLIC_SUPABASE_URL: z.string().url().optional(),
+    NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().min(1).optional(),
   },
 
   /**
@@ -27,7 +42,21 @@ export const env = createEnv({
    * middlewares) or client-side so we need to destruct manually.
    */
   runtimeEnv: {
+    // Server
+    CLERK_SECRET_KEY: process.env.CLERK_SECRET_KEY,
+    CLERK_WEBHOOK_SECRET: process.env.CLERK_WEBHOOK_SECRET,
+    SUPABASE_URL: process.env.SUPABASE_URL,
+    SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY,
+    SUPABASE_SERVICE_ROLE_KEY: process.env.SUPABASE_SERVICE_ROLE_KEY,
     NODE_ENV: process.env.NODE_ENV,
+    // Client
+    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
+    NEXT_PUBLIC_CLERK_SIGN_IN_URL: process.env.NEXT_PUBLIC_CLERK_SIGN_IN_URL,
+    NEXT_PUBLIC_CLERK_SIGN_UP_URL: process.env.NEXT_PUBLIC_CLERK_SIGN_UP_URL,
+    NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL: process.env.NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL,
+    NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL: process.env.NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL,
+    NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
+    NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially

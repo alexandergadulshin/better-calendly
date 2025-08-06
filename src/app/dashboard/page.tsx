@@ -3,8 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-// TODO: Add Clerk imports when integration is set up
-// import { useUser, SignOutButton } from "@clerk/nextjs";
+import { useUser, SignOutButton } from "@clerk/nextjs";
 
 interface User {
   id: number;
@@ -34,10 +33,7 @@ interface Booking {
 }
 
 export default function DashboardPage() {
-  // TODO: Enable when Clerk is set up
-  // const { isLoaded, isSignedIn, user: clerkUser } = useUser();
-  const isLoaded = true; // placeholder
-  const isSignedIn = false; // placeholder
+  const { isLoaded, isSignedIn, user: clerkUser } = useUser();
   const [user, setUser] = useState<User | null>(null);
   const [meetingTypes, setMeetingTypes] = useState<MeetingType[]>([]);
   const [upcomingBookings, setUpcomingBookings] = useState<Booking[]>([]);
@@ -137,16 +133,11 @@ export default function DashboardPage() {
             </div>
             <div className="flex items-center space-x-4">
               <span className="text-sm text-gray-600">@{user?.username}</span>
-              {/* TODO: Enable when Clerk is set up */}
-              {/* <SignOutButton> */}
-                <button 
-                  className="bg-gray-600 text-white px-4 py-2 rounded-md text-sm hover:bg-gray-700"
-                  disabled
-                  title="Sign out will be enabled when authentication is set up"
-                >
-                  Logout (Setup Required)
+              <SignOutButton>
+                <button className="bg-gray-600 text-white px-4 py-2 rounded-md text-sm hover:bg-gray-700">
+                  Logout
                 </button>
-              {/* </SignOutButton> */}
+              </SignOutButton>
             </div>
           </div>
         </div>
