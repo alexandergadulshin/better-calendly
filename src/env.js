@@ -7,7 +7,7 @@ export const env = createEnv({
    * isn't built with invalid env vars.
    */
   server: {
-    // Vercel Postgres (only required in production)
+    // Database - Vercel Postgres will be added via integration
     POSTGRES_URL: z.string().url().optional(),
     POSTGRES_PRISMA_URL: z.string().url().optional(),
     POSTGRES_URL_NON_POOLING: z.string().url().optional(),
@@ -15,19 +15,8 @@ export const env = createEnv({
     POSTGRES_HOST: z.string().optional(),
     POSTGRES_PASSWORD: z.string().optional(),
     POSTGRES_DATABASE: z.string().optional(),
-    // Fallback for local development
     DATABASE_URL: z.string().url().optional(),
-    // Clerk
-    CLERK_SECRET_KEY: z.string().min(1).optional(),
-    // Google Calendar
-    GOOGLE_CLIENT_ID: z.string().min(1).optional(),
-    GOOGLE_CLIENT_SECRET: z.string().min(1).optional(),
-    NEXTAUTH_URL: z.string().url().optional(),
-    // Email
-    RESEND_API_KEY: z.string().min(1).optional(),
-    FROM_EMAIL: z.string().email().optional(),
-    // Cron
-    CRON_SECRET: z.string().min(1).optional(),
+    // Node environment
     NODE_ENV: z
       .enum(["development", "test", "production"])
       .default("development"),
@@ -39,11 +28,7 @@ export const env = createEnv({
    * `NEXT_PUBLIC_`.
    */
   client: {
-    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: z.string().min(1).optional(),
-    NEXT_PUBLIC_CLERK_SIGN_IN_URL: z.string().optional(),
-    NEXT_PUBLIC_CLERK_SIGN_UP_URL: z.string().optional(),
-    NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL: z.string().optional(),
-    NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL: z.string().optional(),
+    // Client-side environment variables will be added when integrations are set up
   },
 
   /**
@@ -51,7 +36,7 @@ export const env = createEnv({
    * middlewares) or client-side so we need to destruct manually.
    */
   runtimeEnv: {
-    // Vercel Postgres
+    // Database
     POSTGRES_URL: process.env.POSTGRES_URL,
     POSTGRES_PRISMA_URL: process.env.POSTGRES_PRISMA_URL,
     POSTGRES_URL_NON_POOLING: process.env.POSTGRES_URL_NON_POOLING,
@@ -59,22 +44,7 @@ export const env = createEnv({
     POSTGRES_HOST: process.env.POSTGRES_HOST,
     POSTGRES_PASSWORD: process.env.POSTGRES_PASSWORD,
     POSTGRES_DATABASE: process.env.POSTGRES_DATABASE,
-    // Fallback
     DATABASE_URL: process.env.DATABASE_URL,
-    // Clerk
-    CLERK_SECRET_KEY: process.env.CLERK_SECRET_KEY,
-    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
-    NEXT_PUBLIC_CLERK_SIGN_IN_URL: process.env.NEXT_PUBLIC_CLERK_SIGN_IN_URL,
-    NEXT_PUBLIC_CLERK_SIGN_UP_URL: process.env.NEXT_PUBLIC_CLERK_SIGN_UP_URL,
-    NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL: process.env.NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL,
-    NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL: process.env.NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL,
-    // Other services
-    GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
-    GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
-    NEXTAUTH_URL: process.env.NEXTAUTH_URL,
-    RESEND_API_KEY: process.env.RESEND_API_KEY,
-    FROM_EMAIL: process.env.FROM_EMAIL,
-    CRON_SECRET: process.env.CRON_SECRET,
     NODE_ENV: process.env.NODE_ENV,
   },
   /**

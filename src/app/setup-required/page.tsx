@@ -4,18 +4,17 @@ export default function SetupRequired() {
       <div className="max-w-md w-full bg-white shadow rounded-lg p-6">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-gray-900 mb-4">
-            Setup Required
+            Ready for Vercel Setup
           </h1>
           <p className="text-gray-600 mb-6">
-            This application requires configuration of environment variables to function properly.
+            This application is ready for Vercel integrations setup.
           </p>
           <div className="text-left space-y-2 text-sm text-gray-700">
-            <p><strong>Required Services:</strong></p>
+            <p><strong>Add these integrations via Vercel Dashboard:</strong></p>
             <ul className="list-disc list-inside space-y-1">
-              <li>Clerk Authentication</li>
               <li>Vercel Postgres Database</li>
-              <li>Google Calendar Integration (optional)</li>
-              <li>Resend Email Service (optional)</li>
+              <li>Clerk Authentication Integration</li>
+              <li>Additional services as needed</li>
             </ul>
           </div>
           <div className="mt-6">

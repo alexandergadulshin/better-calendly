@@ -20,7 +20,6 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@clerk/nextjs": "^6.28.1",
     "@t3-oss/env-nextjs": "^0.12.0",
     "@types/express-rate-limit": "^6.0.2",
     "@vercel/postgres": "^0.10.0",
