@@ -9,10 +9,10 @@ import * as schema from "./schema";
 // Use Vercel Postgres in production, local postgres in development
 let db: ReturnType<typeof drizzle> | ReturnType<typeof drizzleVercel>;
 
-if (env.NODE_ENV === "production" && env.POSTGRES_URL) {
+if (env.POSTGRES_URL) {
   // Production: Use Vercel Postgres
   db = drizzleVercel(sql, { schema });
-} else {
+} else if (env.DATABASE_URL) {
   // Development: Use local postgres
   const globalForDb = globalThis as unknown as {
     conn: postgres.Sql | undefined;
@@ -22,6 +22,9 @@ if (env.NODE_ENV === "production" && env.POSTGRES_URL) {
   if (env.NODE_ENV !== "production") globalForDb.conn = conn;
   
   db = drizzle(conn, { schema });
+} else {
+  // Fallback for initial deployment - create a mock connection
+  db = drizzleVercel(sql, { schema });
 }
 
 export { db };

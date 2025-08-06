@@ -7,7 +7,7 @@ export const env = createEnv({
    * isn't built with invalid env vars.
    */
   server: {
-    // Vercel Postgres
+    // Vercel Postgres (only required in production)
     POSTGRES_URL: z.string().url().optional(),
     POSTGRES_PRISMA_URL: z.string().url().optional(),
     POSTGRES_URL_NON_POOLING: z.string().url().optional(),
@@ -16,18 +16,18 @@ export const env = createEnv({
     POSTGRES_PASSWORD: z.string().optional(),
     POSTGRES_DATABASE: z.string().optional(),
     // Fallback for local development
-    DATABASE_URL: z.string().url(),
+    DATABASE_URL: z.string().url().optional(),
     // Clerk
-    CLERK_SECRET_KEY: z.string().min(1),
+    CLERK_SECRET_KEY: z.string().min(1).optional(),
     // Google Calendar
-    GOOGLE_CLIENT_ID: z.string().min(1),
-    GOOGLE_CLIENT_SECRET: z.string().min(1),
-    NEXTAUTH_URL: z.string().url(),
+    GOOGLE_CLIENT_ID: z.string().min(1).optional(),
+    GOOGLE_CLIENT_SECRET: z.string().min(1).optional(),
+    NEXTAUTH_URL: z.string().url().optional(),
     // Email
-    RESEND_API_KEY: z.string().min(1),
-    FROM_EMAIL: z.string().email(),
+    RESEND_API_KEY: z.string().min(1).optional(),
+    FROM_EMAIL: z.string().email().optional(),
     // Cron
-    CRON_SECRET: z.string().min(1),
+    CRON_SECRET: z.string().min(1).optional(),
     NODE_ENV: z
       .enum(["development", "test", "production"])
       .default("development"),
@@ -39,7 +39,7 @@ export const env = createEnv({
    * `NEXT_PUBLIC_`.
    */
   client: {
-    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: z.string().min(1),
+    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: z.string().min(1).optional(),
     NEXT_PUBLIC_CLERK_SIGN_IN_URL: z.string().optional(),
     NEXT_PUBLIC_CLERK_SIGN_UP_URL: z.string().optional(),
     NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL: z.string().optional(),

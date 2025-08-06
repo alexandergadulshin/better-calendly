@@ -1,4 +1,4 @@
-import { auth } from '@clerk/nextjs/server'
+import { auth, clerkClient } from '@clerk/nextjs/server'
 import { eq } from 'drizzle-orm'
 import { db } from '~/server/db'
 import { users } from '~/server/db/schema'
@@ -17,7 +17,18 @@ export async function getCurrentUser() {
     .where(eq(users.clerkId, userId))
     .limit(1)
 
-  return dbUser || null
+  // If user doesn't exist in our database, create them
+  if (!dbUser) {
+    try {
+      const clerkUser = await (await clerkClient()).users.getUser(userId)
+      return await createOrUpdateUserFromClerk(clerkUser)
+    } catch (error) {
+      console.error('Error creating user from Clerk data:', error)
+      return null
+    }
+  }
+
+  return dbUser
 }
 
 export async function requireAuth() {
