@@ -15,9 +15,7 @@ const config = {
     ignoreBuildErrors: true,
   },
   // Optimize for Vercel deployment
-  experimental: {
-    serverComponentsExternalPackages: ["postgres"],
-  },
+  serverExternalPackages: ["postgres"],
 };
 
 export default config;
