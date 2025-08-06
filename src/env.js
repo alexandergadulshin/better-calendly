@@ -7,15 +7,6 @@ export const env = createEnv({
    * isn't built with invalid env vars.
    */
   server: {
-    // Database - Vercel Postgres will be added via integration
-    POSTGRES_URL: z.string().url().optional(),
-    POSTGRES_PRISMA_URL: z.string().url().optional(),
-    POSTGRES_URL_NON_POOLING: z.string().url().optional(),
-    POSTGRES_USER: z.string().optional(),
-    POSTGRES_HOST: z.string().optional(),
-    POSTGRES_PASSWORD: z.string().optional(),
-    POSTGRES_DATABASE: z.string().optional(),
-    DATABASE_URL: z.string().url().optional(),
     // Node environment
     NODE_ENV: z
       .enum(["development", "test", "production"])
@@ -36,15 +27,6 @@ export const env = createEnv({
    * middlewares) or client-side so we need to destruct manually.
    */
   runtimeEnv: {
-    // Database
-    POSTGRES_URL: process.env.POSTGRES_URL,
-    POSTGRES_PRISMA_URL: process.env.POSTGRES_PRISMA_URL,
-    POSTGRES_URL_NON_POOLING: process.env.POSTGRES_URL_NON_POOLING,
-    POSTGRES_USER: process.env.POSTGRES_USER,
-    POSTGRES_HOST: process.env.POSTGRES_HOST,
-    POSTGRES_PASSWORD: process.env.POSTGRES_PASSWORD,
-    POSTGRES_DATABASE: process.env.POSTGRES_DATABASE,
-    DATABASE_URL: process.env.DATABASE_URL,
     NODE_ENV: process.env.NODE_ENV,
   },
   /**

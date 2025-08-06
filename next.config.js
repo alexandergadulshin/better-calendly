@@ -14,8 +14,7 @@ const config = {
     // Allow production builds to complete even if there are TypeScript errors
     ignoreBuildErrors: true,
   },
-  // Optimize for Vercel deployment
-  serverExternalPackages: ["postgres"],
+  // Clean build configuration
 };
 
 export default config;
