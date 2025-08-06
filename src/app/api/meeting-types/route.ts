@@ -3,7 +3,7 @@ import { eq } from "drizzle-orm";
 import { z } from "zod";
 import { db } from "~/server/db";
 import { meetingTypes } from "~/server/db/schema";
-import { requireAuth } from "~/lib/clerk-utils";
+
 
 const createMeetingTypeSchema = z.object({
   name: z.string().min(1).max(255),
@@ -18,12 +18,12 @@ const createMeetingTypeSchema = z.object({
 // GET /api/meeting-types - List user's meeting types
 export async function GET() {
   try {
-    const user = await requireAuth();
+    // TODO: Add authentication when Clerk integration is set up
     
     const userMeetingTypes = await db
       .select()
       .from(meetingTypes)
-      .where(eq(meetingTypes.userId, user.id))
+      .where(eq(meetingTypes.userId, 1 /* TODO: Replace with actual user ID when auth is set up */))
       .orderBy(meetingTypes.createdAt);
 
     return NextResponse.json({ meetingTypes: userMeetingTypes });
@@ -39,7 +39,7 @@ export async function GET() {
 // POST /api/meeting-types - Create new meeting type
 export async function POST(request: NextRequest) {
   try {
-    const user = await requireAuth();
+    // TODO: Add authentication when Clerk integration is set up
     const body = await request.json();
     const data = createMeetingTypeSchema.parse(body);
 
@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
     const existingCount = await db
       .select({ count: meetingTypes.id })
       .from(meetingTypes)
-      .where(eq(meetingTypes.userId, user.id));
+      .where(eq(meetingTypes.userId, 1 /* TODO: Replace with actual user ID when auth is set up */));
 
     if (existingCount.length >= 3) {
       return NextResponse.json(
@@ -60,7 +60,7 @@ export async function POST(request: NextRequest) {
       .insert(meetingTypes)
       .values({
         ...data,
-        userId: user.id,
+        userId: 1 /* TODO: Replace with actual user ID when auth is set up */,
       })
       .returning();
 

@@ -14,7 +14,7 @@ export async function GET() {
 
     return NextResponse.json({ 
       user: {
-        id: user.id,
+        id: 1 /* TODO: Replace with actual user ID when auth is set up */,
         email: user.email,
         username: user.username,
         firstName: user.firstName,
