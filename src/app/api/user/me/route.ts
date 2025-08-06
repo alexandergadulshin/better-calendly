@@ -1,28 +1,29 @@
 import { NextResponse } from "next/server";
-import { getCurrentUser } from "~/lib/clerk-utils";
 
 export async function GET() {
   try {
-    const user = await getCurrentUser();
+    // TODO: Add authentication when Clerk integration is set up
+    // For now, return placeholder user data or auth required message
     
-    if (!user) {
-      return NextResponse.json(
-        { error: "Not authenticated" },
-        { status: 401 }
-      );
-    }
-
+    return NextResponse.json(
+      { error: "Authentication setup required" },
+      { status: 401 }
+    );
+    
+    // Placeholder user data (will be enabled when auth is set up)
+    /*
     return NextResponse.json({ 
       user: {
-        id: 1 /* TODO: Replace with actual user ID when auth is set up */,
-        email: user.email,
-        username: user.username,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        timezone: user.timezone,
-        calendarConnected: user.calendarConnected,
+        id: 1,
+        email: "user@example.com",
+        username: "demo-user",
+        firstName: "Demo",
+        lastName: "User",
+        timezone: "UTC",
+        calendarConnected: false,
       }
     });
+    */
   } catch (error) {
     console.error("Get user error:", error);
     return NextResponse.json(

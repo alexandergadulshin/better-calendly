@@ -3,7 +3,6 @@ import { eq } from "drizzle-orm";
 import { db } from "~/server/db";
 import { users } from "~/server/db/schema";
 import { GoogleCalendarService } from "~/lib/google-calendar";
-import { auth } from "@clerk/nextjs/server";
 
 export async function GET(request: NextRequest) {
   try {
@@ -13,34 +12,32 @@ export async function GET(request: NextRequest) {
 
     if (error) {
       return NextResponse.redirect(
-        new URL("/dashboard?error=google_auth_cancelled", request.url)
+        new URL("/?error=google_auth_cancelled", request.url)
       );
     }
 
     if (!code) {
       return NextResponse.redirect(
-        new URL("/dashboard?error=missing_code", request.url)
+        new URL("/?error=missing_code", request.url)
       );
     }
 
-    // Get current user from Clerk
-    const { userId } = await auth();
-    if (!userId) {
-      return NextResponse.redirect(
-        new URL("/sign-in?error=not_authenticated", request.url)
-      );
-    }
+    // TODO: Add authentication when Clerk integration is set up
+    // For now, redirect back home since no auth is configured
+    return NextResponse.redirect(
+      new URL("/?message=auth_setup_required", request.url)
+    );
 
-    // Get user from database
+    // Get user from database (placeholder - will be enabled when auth is set up)
     const [dbUser] = await db
       .select()
       .from(users)
-      .where(eq(users.clerkId, userId))
+      .where(eq(users.id, 1)) // placeholder user ID
       .limit(1);
 
     if (!dbUser) {
       return NextResponse.redirect(
-        new URL("/sign-in?error=user_not_found", request.url)
+        new URL("/?error=user_not_found", request.url)
       );
     }
 
